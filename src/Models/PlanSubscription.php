@@ -518,7 +518,7 @@ class PlanSubscription extends Model
         }
 
 	if(!$usage) {
-	    $usage = new app('rinvex.subscriptions.plan_subscription_usage')();
+	    $usage = new PlanSubscriptionUsage(); 
 	}
 	
         // If the feature value is zero, let's return false since
