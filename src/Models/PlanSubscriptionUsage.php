@@ -135,6 +135,20 @@ class PlanSubscriptionUsage extends Model
 
         return $builder->where('feature_id', $feature->getKey() ?? null);
     }
+    
+    /**
+     * Scope subscription usage by feature slug.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param string                                $featureSlug
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeByFeatureSlug(Builder $builder, $featureSlug)
+    {
+        $feature = PlanFeature::where('slug', $featureSlug)->first();
+        return $builder->where('feature_id', $feature->getKey() ?? null);
+    }
 
     /**
      * Check whether usage has been expired or not.
