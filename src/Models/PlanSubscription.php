@@ -278,6 +278,19 @@ class PlanSubscription extends Model
         return $this;
     }
 
+    /** 
+     * Reactivate a canceled subscription
+     * 
+     * @return $this
+     */
+    public function reactivate() {
+        $this->canceled_at = null;
+	
+        $this->save();
+        
+        return $this; 
+    }
+    
     /**
      * Change subscription plan.
      *
