@@ -266,7 +266,16 @@ class Plan extends Model implements Sortable
      */
     public function getFeatureBySlug(string $featureSlug): ?PlanFeature
     {
-        return $this->features()->where('slug', $featureSlug)->first();
+        $hasFeature = $this->features()->where('slug', $featureSlug)->exists();
+        if($hasFeature) {
+            $feature = $this->features()->where('slug', $featureSlug)->first();
+        } else if($this->tier_below) {
+            $feature = static::find($this->tier_below)->getFeatureBySlug($featureSlug);
+        } else {
+            return null;
+        }
+
+        return $feature;
     }
 
     /**

@@ -517,6 +517,10 @@ class PlanSubscription extends Model
             return true;
         }
 
+	if(!$usage) {
+	    $usage = new app('rinvex.subscriptions.plan_subscription_usage')();
+	}
+	
         // If the feature value is zero, let's return false since
         // there's no uses available. (useful to disable countable features)
         if ($usage->expired() || is_null($featureValue) || $featureValue === '0' || $featureValue === 'false') {
@@ -538,6 +542,10 @@ class PlanSubscription extends Model
     {
         $usage = $this->usage()->byFeatureSlug($featureSlug)->first();
 
+	if(!$usage) {
+	    return 0; 
+	}
+	
         return ! $usage->expired() ? $usage->used : 0;
     }
 
