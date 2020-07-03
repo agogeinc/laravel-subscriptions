@@ -437,7 +437,7 @@ class PlanSubscription extends Model
      */
     public function recordFeatureUsage(string $featureSlug, int $uses = 1, bool $incremental = true): PlanSubscriptionUsage
     {
-        $feature = $this->plan->features()->where('slug', $featureSlug)->first();
+        $feature = $this->plan->getFeatureBySlug($featureSlug);
 
         $usage = $this->usage()->firstOrNew([
             'subscription_id' => $this->getKey(),
@@ -549,7 +549,7 @@ class PlanSubscription extends Model
      */
     public function getFeatureValue(string $featureSlug)
     {
-        $feature = $this->plan->features()->where('slug', $featureSlug)->first();
+        $feature = $this->plan->getFeatureBySlug($featureSlug);
 
         return $feature->value ?? null;
     }
