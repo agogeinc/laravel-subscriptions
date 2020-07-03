@@ -36,6 +36,7 @@ class CreatePlansTable extends Migration
             $table->smallInteger('active_subscribers_limit')->unsigned()->nullable();
             $table->mediumInteger('sort_order')->unsigned()->default(0);
 	    $table->integer('tier_below')->unsigned()->nullable();
+	    $table->string('feature_values', 500)->nullable();
             $table->timestamps();
             $table->softDeletes();
 
