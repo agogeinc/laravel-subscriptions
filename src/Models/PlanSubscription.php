@@ -572,6 +572,13 @@ class PlanSubscription extends Model
     {
         $feature = $this->plan->getFeatureBySlug($featureSlug);
 
+        if($this->plan->feature_values) {
+            $featureValues = json_decode($this->plan->feature_values);
+            if(property_exists($featureValues, $featureSlug)) {
+                return $featureValues->$featureSlug;
+            }
+        }
+
         return $feature->value ?? null;
     }
 }
