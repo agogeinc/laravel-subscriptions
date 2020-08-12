@@ -93,13 +93,17 @@ trait HasSubscriptions
      */
     public function newSubscription($subscription, Plan $plan): PlanSubscription
     {
-        $trial = new Period($plan->trial_interval, $plan->trial_period, now());
-        $period = new Period($plan->invoice_interval, $plan->invoice_period, $trial->getEndDate());
+        if($plan->trial_period > 0) {
+            $trial = new Period($plan->trial_interval, $plan->trial_period, now());
+            $period = new Period($plan->invoice_interval, $plan->invoice_period, $trial->getEndDate());
+        } else {
+            $period = new Period($plan->invoice_interval, $plan->invoice_period, now());
+        }
 
         return $this->subscriptions()->create([
             'name' => $subscription,
             'plan_id' => $plan->getKey(),
-            'trial_ends_at' => $trial->getEndDate(),
+            'trial_ends_at' => $plan->trial_period > 0 ? $trial->getEndDate() : now(),
             'starts_at' => $period->getStartDate(),
             'ends_at' => $period->getEndDate(),
         ]);
