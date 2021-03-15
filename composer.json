@@ -1,5 +1,5 @@
 {
-    "name": "cheryllium/laravel-subscriptions",
+    "name": "agogeinc/laravel-subscriptions",
     "description": "This is my personal fork of Rinvex Subscribable (laravel-subscriptions) that patches some issues in the official release and makes some modifications to meet the needs of projects I work on.",
     "type": "library",
     "keywords": [
